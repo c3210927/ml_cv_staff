@@ -59,8 +59,8 @@ The following python function iterates through a numpy array and adds 50 to the 
   for row in image_array:
     for pixel in row:
           pixel[1] += 50
-  return image_array```
-
+  return image_array
+```
 ## Coding/Testing
 ### Objective
 Clone the given repository and create a new branch for your work
