@@ -3,8 +3,8 @@ import cv2 as cv
 from matplotlib import pyplot as plt
 import numpy as np
 
-JSON_FILE = 'RBD13_24543036_BLUE_SINGLE.json'
-IMAGE_FILE = 'DJI_20231213090944_0117_V.JPG'
+JSON_FILE = ''
+IMAGE_FILE = ''
 
 
 def get_rois(file_name: str) -> list:

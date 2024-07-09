@@ -1,21 +1,14 @@
-from src import question_4
-import pytest
+from src import question_3
 
 
-def setUp(self):
+def test_load_image():
     pass
 
-def test_load_image(self):
+def test_load_annotation():
     pass
 
-def test_load_annotation(self):
+def test_draw_polygon():
     pass
 
-def test_draw_polygon(self):
-    pass
-
-def test_create_mask(self):
-    pass
-
-if __name__ == '__main__':
+def test_create_mask():
     pass
