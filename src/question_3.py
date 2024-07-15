@@ -1,10 +1,10 @@
 import json
-import cv2 as cv
+import cv2
 from matplotlib import pyplot as plt
 import numpy as np
 
-JSON_FILE = 'images/f46456de-0522-465e-9a9d-0efc88aebf43.jpeg'
-IMAGE_FILE = 'annotations/RBD13_24543036_BLUE_DOUBLE.json'
+IMAGE_FILE = 'images/f46456de-0522-465e-9a9d-0efc88aebf43.jpeg'
+JSON_FILE = 'annotations/RBD13_24543036_BLUE_DOUBLE.json'
 
 
 def get_rois(file_name: str) -> list:
@@ -94,7 +94,38 @@ def get_rgb_image(file_name: str) -> np.ndarray:
 
 
 def main():
-    pass
+    # Load the JSON
+    with open(JSON_FILE, "r") as readfile:
+        data = json.load(readfile)
+
+    # Extract the ROIs
+    COUNT_ROI = len(data["rois"])
+    all_annotations = []
+
+    for i in range(COUNT_ROI):
+        roi = data["rois"][i]["poly"].replace("POLYGON ((", "").replace("))", "").split(",")
+
+        for points in roi:
+            x, y = points.strip().split(" ")
+            x, y = int(x), int(y)
+
+            new_entry = [x, y]
+
+            all_annotations.extend(new_entry)
+
+    print(all_annotations)
+    # load image
+    img = cv2.imread(IMAGE_FILE)
+
+    cv2.polylines(img, [all_annotations], True, (255, 0, 0))
+    WINDOW_NAME = " "
+    cv2.imshow(WINDOW_NAME, img)
+    cv2.waitKey(0)
+
+
+            
+
+            
 
 if __name__ == "__main__":
     main()
