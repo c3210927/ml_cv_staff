@@ -1,10 +1,10 @@
 import json
-import cv2 as cv
-from matplotlib import pyplot as plt
+#ßimport cv2 as cv
+#from matplotlib import pyplot as plt
 import numpy as np
 
-JSON_FILE = 'images/f46456de-0522-465e-9a9d-0efc88aebf43.jpeg'
-IMAGE_FILE = 'annotations/RBD13_24543036_BLUE_DOUBLE.json'
+IMAGE_FILE = 'images/f46456de-0522-465e-9a9d-0efc88aebf43.jpeg'
+JSON_FILE = 'annotations/RBD13_24543036_BLUE_DOUBLE.json'
 
 
 def get_rois(file_name: str) -> list:
@@ -94,7 +94,21 @@ def get_rgb_image(file_name: str) -> np.ndarray:
 
 
 def main():
-    pass
+    with open(JSON_FILE, "r") as json_input:
+        json_dict = json.load(json_input)
 
+        rois = [x["poly"][x["poly"].find("((")+2:x["poly"].rfind("))")] for x in json_dict["rois"]]
+        split_rois = list()
+        for roi in rois:
+            split_rois.append(roi.split(sep=","))
+
+        roi_dict = dict()
+        for idx, s_roi in enumerate(split_rois):
+            roi_dict[idx] = []
+            for data_point in s_roi:
+                data_point = data_point[1:]
+                roi_dict[idx].append(data_point.split(sep=" "))
+    
+    print((roi_dict))
 if __name__ == "__main__":
     main()
